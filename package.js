@@ -1,8 +1,8 @@
 Package.describe({
   "summary": "Performance Monitoring for Meteor",
   "version": "2.30.2",
-  "git": "https://github.com/meteorhacks/kadira.git",
-  "name": "meteorhacks:kadira"
+  "git": "https://github.com/staceesanti/kadira.git",
+  "name": "vet2pet:meteorhacks:kadira"
 });
 
 var npmModules = {
@@ -87,7 +87,7 @@ Package.on_test(function(api) {
 function configurePackage(api) {
   if(api.versionsFrom) {
     api.versionsFrom('METEOR@1.2');
-    api.use('meteorhacks:meteorx@1.4.1', ['server']);
+    api.use('lamhieu:meteorx@2.1.1', ['server']);
     api.use('meteorhacks:zones@1.2.1', {weak: true});
   }
 
