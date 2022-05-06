@@ -1,28 +1,27 @@
 Package.describe({
-  "summary": "Performance Monitoring for Meteor",
-  "version": "2.30.2",
-  "git": "https://github.com/staceesanti/kadira.git",
-  "name": "vet2pet:meteorhacks:kadira"
+  'summary': 'Performance Monitoring for Meteor',
+  'version': '2.30.3',
+  'git': 'https://github.com/staceesanti/kadira.git',
+  'name': 'vet2pet:meteorhacks:kadira'
 });
 
 var npmModules = {
-  "debug": "0.7.4",
-  "kadira-core": "1.3.2",
-  "pidusage": "1.0.1",
-  "evloop-monitor": "0.1.0",
-  "pidusage": "0.1.1",
-  "lru-cache": "4.0.0",
-  "json-stringify-safe": "5.0.1"
+  'debug': '0.7.4',
+  'kadira-core': '1.3.2',
+  'evloop-monitor': '0.1.0',
+  'pidusage': '0.1.1',
+  'lru-cache': '4.0.0',
+  'json-stringify-safe': '5.0.1'
 };
 
 Npm.depends(npmModules);
 
-Package.on_use(function(api) {
+Package.onUse(function (api) {
   configurePackage(api);
   api.export(['Kadira']);
 });
 
-Package.on_test(function(api) {
+Package.onTest(function (api) {
   configurePackage(api);
   api.use([
     'tinytest',
@@ -30,12 +29,12 @@ Package.on_test(function(api) {
   ], ['client', 'server']);
 
   // common before
-  api.add_files([
+  api.addFiles([
     'tests/models/base_error.js'
   ], ['client', 'server']);
 
   // common server
-  api.add_files([
+  api.addFiles([
     'tests/utils.js',
     'tests/ntp.js',
     'tests/jobs.js',
@@ -64,47 +63,54 @@ Package.on_test(function(api) {
     'tests/wait_time_builder.js',
     'tests/hijack/set_labels.js',
     'tests/environment_variables.js',
-    'tests/docsize_cache.js',
+    'tests/docsize_cache.js'
   ], 'server');
 
   // common client
-  api.add_files([
+  api.addFiles([
     'tests/client/utils.js',
     'tests/client/error_tracking.js',
     'tests/client/models/error.js',
     'tests/client/error_reporters/window_error.js',
     'tests/client/error_reporters/zone.js',
-    'tests/client/error_reporters/meteor_debug.js',
+    'tests/client/error_reporters/meteor_debug.js'
   ], 'client');
 
   // common after
-  api.add_files([
+  api.addFiles([
     'tests/common/default_error_filters.js',
     'tests/common/send.js'
   ], ['client', 'server']);
 });
 
 function configurePackage(api) {
-  if(api.versionsFrom) {
+  if (api.versionsFrom) {
     api.versionsFrom('METEOR@1.2');
-    api.use('lamhieu:meteorx@2.1.1', ['server']);
+    api.use('montiapm:meteorx@2.2.0', ['server']);
     api.use('meteorhacks:zones@1.2.1', {weak: true});
   }
 
   api.use([
-    'minimongo', 'livedata', 'mongo-livedata', 'ejson', 'ddp-common',
-    'underscore', 'http', 'email', 'random'
+    'minimongo',
+    'livedata',
+    'mongo-livedata',
+    'ejson',
+    'ddp-common',
+    'underscore',
+    'http',
+    'email@2.2.1',
+    'random'
   ], ['server']);
   api.use(['underscore', 'random', 'jquery', 'localstorage'], ['client']);
 
   // common before
-  api.add_files([
+  api.addFiles([
     'lib/common/unify.js',
     'lib/models/base_error.js'
   ], ['client', 'server']);
 
   // only server
-  api.add_files([
+  api.addFiles([
     'lib/jobs.js',
     'lib/retry.js',
     'lib/utils.js',
@@ -134,11 +140,11 @@ function configurePackage(api) {
     'lib/hijack/error.js',
     'lib/hijack/set_labels.js',
     'lib/environment_variables.js',
-    'lib/auto_connect.js',
+    'lib/auto_connect.js'
   ], 'server');
 
   // only client
-  api.add_files([
+  api.addFiles([
     'lib/retry.js',
     'lib/ntp.js',
     'lib/client/utils.js',
@@ -149,15 +155,15 @@ function configurePackage(api) {
     'lib/client/kadira.js'
   ], 'client');
 
-  api.add_files([
+  api.addFiles([
     // It's possible to remove this file after some since this just contains
     // a notice to the user.
     // Actual implementation is in the meteorhacks:kadira-profiler package
-    'lib/profiler/client.js',
+    'lib/profiler/client.js'
   ], 'client');
 
   // common after
-  api.add_files([
+  api.addFiles([
     'lib/common/default_error_filters.js',
     'lib/common/send.js'
   ], ['client', 'server']);
